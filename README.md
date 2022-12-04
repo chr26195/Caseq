@@ -7,7 +7,7 @@ The official implementation for "Towards Out-of-Distribution Sequential Event Pr
 Related materials: 
 [paper](https://openreview.net/pdf?id=XQu7UFSbzd2)
 
-<img src="figure.png" width="700">
+<img src="figure.png" width="900">
 
 ### Citation
 If you find our codes useful, please consider citing our work
