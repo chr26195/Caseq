@@ -24,7 +24,7 @@ def fix_seed(seed):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', required=True)
-parser.add_argument('--train_dir', default='default', type=str)
+parser.add_argument('--train_dir', default='default', type=str) # saved folder name
 parser.add_argument('--num_epochs', default=301, type=int)
 parser.add_argument('--train_mode', default='uni', type=str)
 parser.add_argument('--device', default='cpu', type=str)
@@ -35,9 +35,9 @@ parser.add_argument('--save_every', default=20, type=int)
 parser.add_argument('--test_limit', default=1000, type=int)
 parser.add_argument('--save_epoches', default=[50], type=int, nargs='+')
 parser.add_argument('--seed', default=100, type=int)
-parser.add_argument('--lapse', default=30, type=int)
+parser.add_argument('--lapse', default=30, type=int) # gap size 
 
-parser.add_argument('--batch_size', default=128, type=int)
+parser.add_argument('--batch_size', default=512, type=int)
 parser.add_argument('--lr', default=0.001, type=float)
 parser.add_argument('--wd', default=0, type=float)
 parser.add_argument('--dropout_rate', default=0.2, type=float)
@@ -48,10 +48,10 @@ parser.add_argument('--user_D', default=25, type=int) # only for ssept
 parser.add_argument('--sse_prob', default=0.9, type=float) # only for ssept
 parser.add_argument('--num_context', default=3, type=int)
 parser.add_argument('--num_layers', default=2, type=int)
-parser.add_argument('--kl', default=0.0, type=float)
-parser.add_argument('--N', default=10, type=int) # number of psuedo sequences
-parser.add_argument('--backbone', default='att', type=str)
-parser.add_argument('--gumbel', action='store_true')
+parser.add_argument('--kl', default=0.5, type=float) 
+parser.add_argument('--N', default=5, type=int) # number of psuedo sequences
+parser.add_argument('--backbone', default='att', type=str) # implementation of inference unit, 'att' for self-attention
+parser.add_argument('--gumbel', action='store_true') # gumbel softmax or softmax
 
 # parser.add_argument('--personalized_gate', default=False, type=str2bool)
 # parser.add_argument('--att_independence', default=False, type=str2bool)
@@ -102,7 +102,7 @@ if args.state_dict_path is not None:
         model.load_state_dict(torch.load(args.state_dict_path, map_location=torch.device(args.device)))
         tail = args.state_dict_path[args.state_dict_path.find('epoch=') + 6:]
         epoch_start_idx = int(tail[:tail.find('.')]) + 1
-    except: # in case your pytorch version is not 1.6 etc., pls debug by pdb if load weights failed
+    except: 
         print('failed loading state_dicts, pls check file path: ', end="")
         print(args.state_dict_path)
         print('pdb enabled for your quick check, pls type exit() if you do not need it')
@@ -151,7 +151,6 @@ for epoch in range(epoch_start_idx, args.num_epochs + 1):
         adam_optimizer.step()
         if step == num_batch-1:
             print("loss in epoch {} iteration {}: loss_pred {}".format(epoch, step, loss_pred.item()))
-            # print("loss in epoch {} iteration {}: loss_pred {}, loss_kl {}".format(epoch, step, loss_pred.item(), loss_kl.item()))
             
     if epoch % args.eval_every == 0:
         

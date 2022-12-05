@@ -9,6 +9,15 @@ Related materials:
 
 <img src="figure.png" width="900">
 
+### How to Run?
+
+- Install the required package according to `requirements.txt`.
+- Download publicly accessible datasets and specify your own data path in `utils.py`.
+- Train the model, logs will be saved in the folder `results`. E.g.
+```
+python main.py --dataset=ml-1m --backbone=gru
+```
+
 ### Citation
 If you find our codes useful, please consider citing our work
 ```bibtex

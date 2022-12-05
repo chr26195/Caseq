@@ -18,7 +18,7 @@ def data_partition(fname, lapse):
     user_valid2 = {}
     user_test = {}
     user_test2 = {}
-    f = open('/home/yangchenxiao/sas_data/%s.txt' % fname, 'r')
+    f = open('/home/yangchenxiao/caseq_data/%s.txt' % fname, 'r')
     for line in f:
         u, i = line.rstrip().split(' ')
         u = int(u)
@@ -55,7 +55,7 @@ def data_partition(fname, lapse):
 
 
 def load_item_pop(fname):
-    with open('/home/yangchenxiao/sas_data/%s-ihis.pkl' % fname, 'rb') as f:
+    with open('/home/yangchenxiao/caseq_data/%s-ihis.pkl' % fname, 'rb') as f:
         item_his = pickle.load(f)
     item_rated_num = {}
     for i in item_his.keys():
