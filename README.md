@@ -12,10 +12,10 @@ Related materials:
 ### How to Run?
 
 - Install the required package according to `requirements.txt`.
-- Download publicly accessible datasets and specify your own data path in `utils.py`.
+- Download publicly accessible datasets and specify your own data path in `utils.py`. The dataset should be a text file, where (user_id item_id) or (sequence_id event_id) pairs are sorted in chronological order.
 - Train the model, logs will be saved in the folder `results`. E.g.
 ```
-python main.py --dataset=ml-1m --backbone=gru
+python main.py --dataset=ml-1m --backbone=gru --device=cuda:0
 ```
 
 ### Citation

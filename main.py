@@ -43,14 +43,14 @@ parser.add_argument('--wd', default=0, type=float)
 parser.add_argument('--dropout_rate', default=0.2, type=float)
 parser.add_argument('--maxlen', default=200, type=int)
 parser.add_argument('--hidden_units', default=50, type=int)
+parser.add_argument('--kl', default=0.5, type=float) 
+parser.add_argument('--N', default=5, type=int) # number of psuedo sequences
+parser.add_argument('--backbone', default='att', type=str) # implementation of inference unit, 'att' for self-attention
 
 parser.add_argument('--user_D', default=25, type=int) # only for ssept
 parser.add_argument('--sse_prob', default=0.9, type=float) # only for ssept
 parser.add_argument('--num_context', default=3, type=int)
 parser.add_argument('--num_layers', default=2, type=int)
-parser.add_argument('--kl', default=0.5, type=float) 
-parser.add_argument('--N', default=5, type=int) # number of psuedo sequences
-parser.add_argument('--backbone', default='att', type=str) # implementation of inference unit, 'att' for self-attention
 parser.add_argument('--gumbel', action='store_true') # gumbel softmax or softmax
 
 # parser.add_argument('--personalized_gate', default=False, type=str2bool)
@@ -74,9 +74,13 @@ dataset, dataset2 = data_partition(args.dataset, args.lapse)
 [user_train2, user_valid2, user_test2, usernum, itemnum] = dataset2
 num_batch = len(user_train) // args.batch_size # tail? + ((len(user_train) % args.batch_size) != 0)
 
-item_rated_num = load_item_pop(args.dataset)
-item_pop = np.array(list(item_rated_num.values()), dtype=np.float)
-item_pop /= np.sum(item_pop)
+if args.train_mode == 'uni': # sampling based on uniform distribution, which is the default option 
+    item_pop = None
+else: 
+    item_rated_num = load_item_pop(args.dataset)
+    item_pop = np.array(list(item_rated_num.values()), dtype=np.float)
+    item_pop /= np.sum(item_pop)
+        
 
 cc = 0.0
 for u in user_train:
