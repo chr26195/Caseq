@@ -17,14 +17,3 @@ Related materials:
 ```
 python main.py --dataset=ml-1m --backbone=gru --device=cuda:0
 ```
-
-### Citation
-If you find our codes useful, please consider citing our work
-```bibtex
-      @inproceedings{yang2022caseq,
-      title = {Towards Out-of-Distribution Sequential Event Prediction: A Causal Treatment},
-      author = {Chenxiao Yang and Qitian Wu and Qingsong Wen and Zhiqiang Zhou and Liang Sun and Junchi Yan},
-      booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
-      year = {2022}
-      }
-```
